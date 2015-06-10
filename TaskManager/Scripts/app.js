@@ -136,10 +136,5 @@
             ajaxHelper(subtasksUri+subtask.Id, 'DELETE').done(function (data) {
                 self.subtasks.remove(subtask);});
         }
-
-        self.getCategoryUrl = function(task){
-            var res = "~/Home/Category/1";
-        }
-    
 };
 ko.applyBindings(new ViewModel());
