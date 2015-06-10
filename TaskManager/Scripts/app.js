@@ -26,6 +26,11 @@
 
     function getAllTasks() {
         ajaxHelper(tasksUri, 'GET').done(function (data) { self.tasks(data); });
+        for (i = 0; i < self.tasks().length; i++) {
+            self.tasks()[i] = {
+                IsDone : ko.observable(self.tasks()[i].IsDone)
+            }
+        }
     }
 
     function getAllSubtasks() {
@@ -35,9 +40,9 @@
     getAllTasks();
     getAllSubtasks();  
 
-    self.removeTask = function (i) {
-        ajaxHelper(tasksUri+i, 'DELETE').done(function (data) {
-            self.tasks.remove(data);
+    self.removeTask = function (task) {
+        ajaxHelper(tasksUri+task.Id, 'DELETE').done(function (data) {
+            self.tasks.remove(task);
         });
     }
 
@@ -45,7 +50,7 @@
         for (i = 0; i < self.tasks().length; i++)
         {            
             if (self.tasks()[i].IsDone)
-                self.removeTask(self.tasks()[i].Id);            
+                self.removeTask(self.tasks()[i]);
         }
     }    
 
@@ -108,8 +113,6 @@
     }
 
         self.changeSubtaskState = function (subtask) {
-            console.log('test2');
-
             var i = self.subtasks().indexOf(subtask);
             var k;
             for (j = 0; j < self.tasks().length; j++)
@@ -130,9 +133,13 @@
         }
 
         self.removeSubtask = function (subtask) {
-            console.log('test');
             ajaxHelper(subtasksUri+subtask.Id, 'DELETE').done(function (data) {
-                self.subtasks.remove(data);});
-        }   
+                self.subtasks.remove(subtask);});
+        }
+
+        self.getCategoryUrl = function(task){
+            var res = "~/Home/Category/1";
+        }
+    
 };
 ko.applyBindings(new ViewModel());
