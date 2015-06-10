@@ -1,0 +1,33 @@
+﻿@section scripts {
+  @Scripts.Render("~/bundles/app")
+}
+<div>
+    <button data-bind="click: changeVisibleState">Show/Hide tasks</button>
+    <button data-bind="click: removeDoneTasks">Remove done tasks</button>
+</div>
+<div data-bind="visible : IsTaskListVisible">
+    <ul  data-bind="foreach : tasks">
+        <li>
+           <h2><span data-bind="text: Text"></span> : <span data-bind="text: Date"></span></h2>
+            <a data-bind="attr : { href : CategoryUrl }">Category page</a>
+            <div>
+                <input type="text" data-bind="value: $root.subtaskText" />                      
+            </div>
+            <span><button data-bind="click : $parent.addSubtask">Add a subtask</button></span>  
+             <div>
+                     Done : <input type="checkbox" data-bind="checked : IsDone" disabled/>
+                    <button data-bind="click:$parent.changeTaskState">Mark as done/undone</button> 
+             </div>
+            <h3>Subtasks :</h3> 
+            <ul data-bind="foreach : $root.subtasks">
+                <!-- ko if: $parent.Id == TaskId -->
+                <li>
+                     <span data-bind="text : Text"></span> : <input type="checkbox" data-bind="checked : IsDone" disabled />
+                     <button data-bind="click: $parentContext.$parent.changeSubtaskState">done/undone</button>  
+                      <button data-bind="click : $parentContext.$parent.removeSubtask">remove</button>
+                </li> 
+                <!-- /ko -->
+            </ul> 
+       </li>
+    </ul>
+</div>

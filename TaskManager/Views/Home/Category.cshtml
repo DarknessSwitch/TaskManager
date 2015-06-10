@@ -1,0 +1,14 @@
+﻿@model TaskManager.Models.Category
+
+@{
+    ViewBag.Title = "Category";
+}
+
+<h2>Category</h2>
+<h3>Description : </h3>
+    <div class="display-field">
+            @Html.DisplayFor(model => model.Text)
+    </div>
+<p>
+    @Html.ActionLink("Back", "Index")
+</p>
