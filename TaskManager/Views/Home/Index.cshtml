@@ -4,6 +4,11 @@
 <div>
     <button data-bind="click: changeVisibleState">Show/Hide tasks</button>
     <button data-bind="click: removeDoneTasks">Remove done tasks</button>
+    <p>
+    <input type ="date" data-bind="value :$root.taskDate" />
+    <input type ="text" data-bind="value : $root.taskText" />
+    <button data-bind="click: addTask">Add a task</button>
+    </p>
 </div>
 <div data-bind="visible : IsTaskListVisible">
     <ul  data-bind="foreach : tasks">

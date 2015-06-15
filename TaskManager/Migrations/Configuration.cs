@@ -15,6 +15,19 @@ namespace TaskManager.Migrations
 
         protected override void Seed(TaskManager.Models.TaskManagerContext context)
         {
+            //  This method will be called after migrating to the latest version.
+
+            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
+            //  to avoid creating duplicate seed data. E.g.
+            //
+            //    context.People.AddOrUpdate(
+            //      p => p.FullName,
+            //      new Person { FullName = "Andrew Peters" },
+            //      new Person { FullName = "Brice Lambson" },
+            //      new Person { FullName = "Rowan Miller" }
+            //    );
+            //
+
             context.Categories.AddOrUpdate(x => x.Id,
                 new Category { Id =1, Text = "Studying" },
                 new Category {Id = 2, Text = "Housekeeping"});

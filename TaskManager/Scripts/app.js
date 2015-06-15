@@ -5,6 +5,8 @@
     self.IsTaskListVisible = ko.observable(false);
     self.subtasks = ko.observableArray();
     self.subtaskText = ko.observable("");
+    self.taskText = ko.observable("");
+    self.taskDate = ko.observable();
     var tasksUri = '/api/task/';
     var subtasksUri = '/api/subtasks/';   
 
@@ -59,6 +61,16 @@
             self.IsTaskListVisible(true);
         else
             self.IsTaskListVisible(false);
+    }
+
+    self.addTask = function () {
+        var task = {
+            Text: self.taskText(),
+            Date: self.taskDate(),
+            IsDone: false,
+            CategoryUrl : "/Home/Category/1"
+        }
+        ajaxHelper(tasksUri, 'POST', task).done(function (item) { self.tasks.push(item); });
     }
 
     self.addSubtask = function (task) {
@@ -131,10 +143,10 @@
                     self.markTaskDone(task);
             }
         }
-
+        
         self.removeSubtask = function (subtask) {
             ajaxHelper(subtasksUri+subtask.Id, 'DELETE').done(function (data) {
                 self.subtasks.remove(subtask);});
-        }
+        } 
 };
 ko.applyBindings(new ViewModel());
